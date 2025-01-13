@@ -6,6 +6,7 @@ public class Main {
     static String[] name = new String[total_table];
     static float[] duration_order = new float[total_table];
     static float[] time_now = new float[total_table];
+    static float[] finish_time = new float[total_table];
     static int[] list = new int[total_table];
 
     public static void main(String[] args) {
@@ -14,7 +15,7 @@ public class Main {
             System.out.println("===MENU===");
             System.out.println("1 : ORDER TABLE");
             System.out.println("2 : ORDER LIST");
-            System.out.println("3 : EXIT ");
+            System.out.println("3 : EXIT "); 
             System.out.print("menu : ");
             int menu = sc.nextInt();
 
@@ -54,6 +55,10 @@ public class Main {
                     name[i] = sc.next();
                     System.out.print("CURRENT TIME : ");
                     time_now[i] = sc.nextFloat();
+                    while (time_now[i] < 0 || time_now[i] > 24) {
+                        System.out.println("INPUT RIGHT CURRENT TIME : ");
+                        time_now[i] = sc.nextFloat();
+                    }
                     System.out.print("DURATION : ");
                     duration_order[i] = sc.nextFloat();
                     System.out.println("ORDER SUCCESS, ENJOY ");
@@ -65,16 +70,20 @@ public class Main {
 
     static void showlist() {
         for (int i = 0; i < total_table; i++) {
+            finish_time[i] = (time_now[i] + duration_order[i]);
             if (name[i] != null) {
                 System.out.println("\n===TABLE " + (i+1) + "===");
                 System.out.println("NAME : " + name[i]);
                 System.out.println("ORDER TIME  : " + time_now[i]);
                 System.out.println("DURATION  : " + duration_order[i] + " hour");
+                if (finish_time[i] > 24) {
+                    finish_time[i] -= 24; 
+                }
+                System.out.println("FINISH TIME : " + finish_time[i]);
             } else {
                 System.out.println("\n===TABLE " + (i+1) + "===");
                 System.out.println("THIS TABLE IS EMPTY");
             }
         }
     }
-
 }
